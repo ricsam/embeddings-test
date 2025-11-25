@@ -153,7 +153,7 @@ const outputData = {
   entries,
 };
 
-await Bun.write(OUTPUT_PATH, JSON.stringify(outputData, null, 2));
+await Bun.write(OUTPUT_PATH, JSON.stringify(outputData));
 
 const elapsed = (performance.now() - startTime).toFixed(0);
 const fileSizeMB = (await Bun.file(OUTPUT_PATH).size) / (1024 * 1024);

@@ -34,21 +34,9 @@ cp .env.example .env
 bun install
 ```
 
-### 3. Prepare the embeddings
+### 3. Start the development server
 
-Convert the CSV to a fast-loading JSON file (one-time setup):
-
-```bash
-bun run prepare:embeddings
-```
-
-This will create `dictionary-embeddings.json` with 2,000 entries. For more entries:
-```bash
-bun run prepare:embeddings:5k   # 5,000 entries
-bun run prepare:embeddings:10k  # 10,000 entries
-```
-
-### 4. Start the development server
+> **Note**: The repository includes a pre-built `dictionary-embeddings.json` with 2,000 entries, so you can skip the preparation step and jump straight to running the server!
 
 ```bash
 bun dev
@@ -102,12 +90,15 @@ Bun automatically loads `.env` files, so restart the dev server after creating i
 
 ### "Dictionary file not found" error
 
-You need to run the preprocessing script first:
+The `dictionary-embeddings.json` file should be included in the repo. If it's missing, you can regenerate it:
+
 ```bash
+# Download the CSV from Kaggle if you don't have it
+# https://www.kaggle.com/datasets/bboyenergetic/english-dictionary-openai-embeddings
+
+# Then run the preprocessing script
 bun run prepare:embeddings
 ```
-
-This requires `oted_embeddings.csv` to be in the project root directory.
 
 ### Port already in use
 
@@ -141,6 +132,26 @@ curl -X POST http://localhost:3000/api/suggest-terms \
 - Customize the UI in `src/App.tsx`
 - Add caching for frequently searched queries
 - Experiment with different similarity thresholds
+
+## Regenerating Embeddings
+
+If you want to change the number of dictionary entries, download the full CSV from [Kaggle](https://www.kaggle.com/datasets/bboyenergetic/english-dictionary-openai-embeddings) and run:
+
+```bash
+# 2,000 entries (default)
+bun run prepare:embeddings
+
+# 5,000 entries
+bun run prepare:embeddings:5k
+
+# 10,000 entries
+bun run prepare:embeddings:10k
+
+# Custom amount
+bun scripts/prepare-embeddings.ts 3000
+```
+
+After regenerating, restart the dev server to load the new embeddings.
 
 Enjoy exploring semantic search! 🚀
 

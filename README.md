@@ -47,7 +47,7 @@ A full-stack semantic search application that suggests English dictionary terms 
    OPENAI_API_KEY=sk-your-key-here
    ```
 
-4. Ensure `oted_embeddings.csv` is in the project root directory
+> **Note**: The repository includes a pre-built `dictionary-embeddings.json` with 2,000 entries, so you can start immediately without downloading the full CSV!
 
 ### Development
 
@@ -125,7 +125,13 @@ Get server status and loaded dictionary count.
 
 ## Memory Optimization
 
-To keep memory usage under control, the app loads only the **first 2,000 rows** from the ~176K row CSV file. This provides a good balance between variety and performance for demonstration purposes.
+The app uses a pre-built JSON file containing **2,000 dictionary entries** (from the ~176K row source CSV). This provides a good balance between variety, performance, and repository size for demonstration purposes.
+
+To use more entries, download the full CSV from [Kaggle](https://www.kaggle.com/datasets/bboyenergetic/english-dictionary-openai-embeddings) and run:
+```bash
+bun run prepare:embeddings:5k   # 5,000 entries
+bun run prepare:embeddings:10k  # 10,000 entries
+```
 
 ## Development
 
